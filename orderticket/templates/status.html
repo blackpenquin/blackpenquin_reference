@@ -1,0 +1,111 @@
+<br>
+
+<style>
+	.btn-sm {
+    color: #fff;
+    background-color: rebeccapurple;
+    border-color: purple; /*set the color you want here*/
+}
+
+.btn-sm:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {
+    color: purple;
+    background-color: white;
+    border-color: purple; /*set the color you want here*/
+}
+
+
+.btn-sm:focus{
+	color: white;
+    background-color: rebeccapurple;
+    border-color: purple; /*set the color you want here*/
+}
+</style>
+<div class="row">
+	<div class="col d-flex justify-content-center">
+		<div  class="col d-flex justify-content-center">
+			<div class="card text-center text-white  mb-3" id="total-orders" style="background-color:white">
+			  	<div class="card-header">
+			  		<h5 class="card-title" style="color:rebeccapurple">Register user</h5>
+			  	</div>
+			  	<div class="card-body">
+					<h5><a class="btn btn-primary  btn-sm-2 btn-block"  style="width:100%;background-color:rebeccapurple" href="{% url 'newCustomerAdmin' %}">Create +</a></h5>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+<div  class="row d-flex justify-content-center">
+	<div class="row d-flex justify-content-center">
+
+		<div class="col">
+			<div class="col-md">
+				<div class="card text-center text-white  mb-3" id="total-orders" style="background-color:rebeccapurple">
+					  <div class="card-header">
+						  <h5 class="card-title">Total Users</h5>
+					  </div>
+					  <div class="card-body">
+						<h3 class="card-title">{{total_customers}}</h3>
+					  </div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col">
+			<div class="col-md">
+				<div class="card text-center text-white  mb-3" id="orders-delivered" style="background-color:rebeccapurple">
+					  <div class="card-header">
+						  <h5 class="card-title">Total Orders</h5>
+					  </div>
+					  <div class="card-body">
+						<h3 class="card-title">{{Totalorders}}</h3>
+					  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="col">
+		<div class="col-md">
+			<!-- <div class="card text-center text-white  mb-3" id="orders-delivered" style="background-color:rebeccapurple">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Trial Customers</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{activeSubscriptions}}</h3>
+			  	</div>
+			</div> -->
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<!-- <div class="card text-center text-white  mb-3" id="orders-delivered" style="background-color:green">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Premium Customers</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{activeSubscriptions}}</h3>
+			  	</div>
+			</div> -->
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<!-- <div class="card text-center text-white  mb-3" id="orders-pending" style="background-color:darkred">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Expired Subscriptions</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{expiredSubscriptions}}</h3>
+			  	</div>
+			</div> -->
+		</div>
+	</div> 
+	
+</div>

@@ -1,0 +1,164 @@
+{%  extends 'main.html' %}
+
+
+{% block content %}
+
+{%  include 'status.html' %}
+
+<br>
+<style>
+.container{
+  padding: 1rem;
+  margin: 1rem;
+}
+.table-scroll{
+  /*width:100%; */
+  display: block;
+  empty-cells: show;
+  
+  /* Decoration */
+  border-spacing: 0;
+  border: 1px solid;
+}
+
+.table-scroll thead{
+  background-color: #f1f1f1;  
+  position:relative;
+  display: block;
+  width:100%;
+  overflow-y: scroll;
+}
+
+.table-scroll tbody{
+  /* Position */
+  display: block; position:relative;
+  width:100%; overflow-y:scroll;
+  /* Decoration */
+  border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.table-scroll tr{
+  width: 100%;
+  display:flex;
+}
+
+.table-scroll td,.table-scroll th{
+  flex-basis:100%;
+  flex-grow:2;
+  display: block;
+  padding: 1rem;
+  text-align:left;
+}
+
+/* Other options */
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child{
+  flex-basis:20%;
+  flex-grow:1;
+}
+
+.table-scroll tbody tr:nth-child(2n){
+  background-color: rgba(130,130,170,0.1);
+}
+
+.body-half-screen{
+  max-height: 50vh;
+}
+
+.small-col{flex-basis:10%;}
+
+.btn-sm {
+    color: #fff;
+    background-color: rebeccapurple;
+    border-color: purple; /*set the color you want here*/
+}
+
+.btn-sm:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {
+    color: purple;
+    background-color: white;
+    border-color: purple; /*set the color you want here*/
+}
+
+
+.btn-sm:focus{
+	color: white;
+    background-color: rebeccapurple;
+    border-color: purple; /*set the color you want here*/
+}
+
+.btn-info.active{
+	color: white;
+    background-color: rebeccapurple;
+    border-color: purple; /*set the color you want here*/
+}
+
+th {width:1px;}
+</style>
+<div class="row">
+	<div class="col" >
+			<h5>EXISTING USERS:</h5>
+
+		  <table class="table-scroll small-first-col">
+			<thead>
+				<tr>
+					<th style="min-width: 25%;">    </th>
+					<th>User</th>
+					<th>No. of Orders</th>
+					<th>    </th>
+				</tr>
+			</thead>
+			<tbody class="body-half-screen">
+				{% for customer in existingCustomer %}
+				<tr>
+					<td><a class="btn btn-sm" style="width:100%;" href="{% url 'customer' customer.user.username %}">View</a></td>
+					<td>{{customer.name}}</td>
+					<td>{{customer.order_set.all|length}}</td>
+					
+					<td><a class="btn btn-danger" href="{% url 'deleteCustomer' customer.id %}">Delete</a></td>
+
+				</tr>
+			{% endfor %}
+			</tbody>
+		  </table>
+	</div>
+
+	<div class="col" >
+		<!-- <div class="container"> -->
+		<h5 style='font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>NEW USERS:</h5>
+		  <table class="table-scroll small-first-col">
+			<thead>
+				<tr>
+					<th style="min-width:25%"></th>
+					<th>User</th>
+					<th>No. of Orders</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody class="body-half-screen">
+				{% for customer in newcustomer %}
+				<tr>
+					<td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">View</a></td>
+					<td>{{customer.name}}</td>
+					<td>{{customer.order_set.all|length}}</td>
+					<td><a class="btn btn-danger" href="{% url 'deleteCustomer' customer.id %}">Delete</a></td>
+
+				</tr>
+			{% endfor %}
+			</tbody>
+		  </table>
+		<!-- </div> -->
+	</div>
+</div>
+
+<script>
+$(document).ready(function () {
+$('#dtDynamicVerticalScrollExample').DataTable({
+"scrollY": "50vh",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
+</script>
+{% endblock %}
+

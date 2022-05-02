@@ -1,0 +1,284 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+<style>
+	.table-scroll{
+  /*width:100%; */
+  display: block;
+  empty-cells: show;
+  
+  /* Decoration */
+  border-spacing: 0;
+  border: 1px solid;
+}
+
+.table-scroll thead{
+  background-color: #f1f1f1;  
+  position:relative;
+  display: block;
+  width:100%;
+  overflow-y: scroll;
+}
+
+.table-scroll tbody{
+  /* Position */
+  display: block; position:relative;
+  width:100%; overflow-y:scroll;
+  /* Decoration */
+  border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.table-scroll tr{
+  width: 100%;
+  display:flex;
+}
+
+.table-scroll td,.table-scroll th{
+  flex-basis:100%;
+  flex-grow:2;
+  display: block;
+  padding: 1rem;
+  text-align:left;
+}
+
+/* Other options */
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child{
+  flex-basis:20%;
+  flex-grow:1;
+}
+
+.table-scroll tbody tr:nth-child(2n){
+  background-color: rgba(130,130,170,0.1);
+}
+
+.body-half-screen{
+  max-height: 50vh;
+}
+
+.small-col{flex-basis:10%;}
+
+.table {
+      display: flex;
+    }
+
+    .table .col {
+      width: 25%;
+    }
+
+    @media screen and (max-width: 786px) {
+      .table {
+        flex-wrap: wrap;
+      }
+      .table .col {
+        width: 50%;
+      }
+    }
+</style>
+
+<br>
+
+<div class="row">
+
+</div>
+
+
+{% comment %} <br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{myFilter.form}}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div> {% endcomment %}
+<br>
+
+{% if messages %}
+{% for message in messages %}
+<p style="color:green; font-size: 20px; list-style-type: none;" id="message">{{message}}</p>
+{% endfor %}	
+{% endif %}
+
+
+{% comment %} <ul id ="msg" class="messages">
+	{% for message in messages %}
+	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:green; font-size: 20px; list-style-type: none;">{{ message }}</li>
+	{% endfor %}
+</ul> {% endcomment %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Account details:</h5>
+			<hr>
+			<p>Since: {{customer.joineddate}}</p>
+			<p>username: {{customer.user.username}}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="row">
+			<div class="card card-body">
+				
+				<form method="POST" id="form1" data-slots="{% url 'customerpastorders' %}" >
+					{% csrf_token %}
+					
+					<div class="form-group row">
+					  <label for="input1" class="col-sm-2 col-form-label">Date:</label>
+					  <div class="col-sm-8">
+						<input type="date" class="form-control" id="orderdate" name="orderdate" required>
+						<!-- <p class="help_text_style">Type any number between 1 to 8 followed by *. <b>Ex: 123*</b></p> -->
+					</div>
+					</div>
+				  
+					<div class="form-group mx-sm-3 mb-2" style="text-align: center">
+					  <button type="submit"    class="btn btn-dark mb-2 dark" style="background-color: #053f3c;">Submit</button>
+
+					  <button type="reset"    class="btn btn-dark mb-2 dark" style="background-color: #053f3c;">Clear</button>
+					</div>
+				  
+				  </form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="card card-body">
+				<div id="cutomerpast">
+					<h5>Total orders: <span class="badge badge-pill badge-info" style="background-color: #053f3c;" >-</span> </h5>
+					<h5>T values: <span class="badge badge-pill badge-info" style="background-color: #053f3c;">-</span> </h5>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{subscription_count}}</h1>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="row">
+	
+	<div class="col">
+
+		<table class="table-scroll small-first-col">
+			<thead>
+				<tr>
+					<th>Order No.</th>
+					<th>Races</th>
+					<th>Detail</th>
+					<th>Total</th>
+					<th>Ordered on</th>
+					<th></th>
+					<!-- <th>Update</th>
+					<th>Remove</th> -->
+				</tr>
+			</thead>
+			<tbody class="body-half-screen">
+			{% for order in subscriptions %}
+
+			<tr>
+				<td>{{ order.ordertag }}</td>
+				<td>{{order.race}}</td>
+				<td>{{order.orderdetail}}</td>
+				<td>{{order.total}}</td>
+				<td>{{ order.orderdate }}</td>
+				<td><a class="btn btn-danger" href="{% url 'deleteOrder' order.id %}">Cancel</a></td>
+				<!-- <td><a class="btn btn-sm btn-info" href="">Update</a></td>
+				<td><a class="btn btn-sm btn-danger" href="">Delete</a></td> -->
+			</tr>
+
+			{% endfor %}
+			</tbody>
+		  </table>
+		<!-- <div class="card card-body"> -->
+
+
+
+			<!-- <table class="table table-sm">
+				<tr>
+					<th>Order No.</th>
+					<th>Races</th>
+                    <th>Detail</th>
+					<th>Total</th>
+					<th>Ordered on</th>
+
+				</tr>
+
+				{% for order in subscriptions %}
+
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td>{{order.race}}</td>
+                    <td>{{order.orderdetail}}</td>
+					<td>{{order.total}}</td>
+					<td>{{ order.orderdate }}</td>
+
+				</tr>
+				{% endfor %}
+
+			</table> -->
+		<!-- </div> -->
+	</div>
+</div>
+
+
+
+<script>
+
+
+
+  // suppose the `id` attribute of element is `message_container`.
+var message_ele = document.getElementById("message");
+
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+// Timeout is 3 sec, you can change it
+
+
+$("#form1").submit(function() {
+var url = $("#form1").attr("data-slots")
+var section = "{{customer.id}}";
+var mydata = $("form#form1").serialize()+ "&section=" + section;
+// mydata.append('callPut', strUser);
+$.ajax({
+	type: "POST",
+	url: url,
+	data: mydata,
+	success: function(response, textStatus, xhr) {
+		console.log(url);
+		// document.getElementById("form1").reset();
+		$("#cutomerpast").show();
+		$("#cutomerpast").html(response);
+
+	},
+	error: function(xhr, textStatus, errorThrown) {
+		console.log("error");
+	}
+});
+return false;
+});
+
+
+</script>
+
+
+
+
+
+{% endblock %}

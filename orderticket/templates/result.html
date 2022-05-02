@@ -1,0 +1,48 @@
+<style>
+    .badge {
+    display: inline-block;
+    padding: .35em .65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+</style>
+
+<div class="row">
+    <div class="col-lg-6" style="margin-top: 1%;">
+        <!-- <h3 style="color:#EF3B3A"> {{message}}  </h3> -->
+        <!-- {% if messages %}
+        {% for message in messages %}
+        <p style="color:#EF3B3A; font-size: 20px; list-style-type: none;" id="message">{{message}}</p>
+        {% endfor %}	
+        {% endif %} -->
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if "Successfully" in message %}
+        <h4 style="color:rgb(58, 239, 58)"> {{message}}  </h4>
+        {% else %}
+        <span class="badge badge-danger"style="color: white"><h4 style="color:white"> {{message}}  </h4></span>
+        
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        <h5>{{request.user|capfirst}} - <span class="badge badge-secondary"style="color: white">#{{orderCount}}</span></h5>
+        <h5>Date: <span class="badge badge-secondary"style="color: white">{{todaysdate}}</span></h5>
+        <h5>Time: <span class="badge badge-secondary"style="color: white">{{ordertime}}</span></h5>
+        
+        <h5><span class="badge badge-secondary"style="color: white">{{raceName}}</span></h5>
+        <h5><span class="badge badge-secondary"style="color: white">{{result1}}</span></h5>
+        <h5><span class="badge badge-secondary"style="color: white">{{result3}}</span></h5>
+        <h5><span class="badge badge-secondary"style="color: white">{{result2}}</span></h5>
+
+        <h5>T = <span class="badge badge-secondary"style="color: white">{{finalresult}}</span></h5>
+    </div>
+</div>
+

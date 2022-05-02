@@ -1,0 +1,84 @@
+{%  extends 'main.html' %}
+
+
+{% block content %}
+
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6238c5694a222e001a07b78e&product=inline-share-buttons" async="async"></script>
+
+<style>
+  .float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+</style>
+<br>
+
+<main role="main" class="container">
+  
+    <div class="card-header" style="background-color:#C9D1C8">
+        {% comment %} <h5 class="card-title" style="text-align: center">Result</h5> {% endcomment %}
+        <h2 style="text-align: center"> <span class="badge" style="color:white;background-color:#5B7065">Order details</span> </h2>
+    </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if "Successfully" in message %}
+        <h4 style="color:rgb(58, 239, 58);text-align: center;"> {{message}}  </h4>
+        {% else %}
+        <h5 id = "message" style="text-align: center;"><span class="badge badge-danger"style="color: white;">{{message}}</span></h5>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+      <h5 class="border-bottom border-gray pb-2 mb-0" style="text-align: center;">{{request.user|capfirst}} - <span class="badge badge-secondary"style="color: white">#{{orderCount}}</span> Date: <span class="badge badge-secondary"style="color: white">{{todaysdate}}</span> <span class="badge badge-secondary"style="color: white">{{ordertime}}</span></h5>
+
+      {% if raceName|length > 1 %}
+      <ul style="text-align: center;">
+        {% for item in raceName %}
+        <li> 
+            <h5><span class="badge badge-secondary"style="color: white;font-size:large;background-color:#5B7065">{{item}}</span></h5>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <h5 style="text-align: center;"><span class="badge badge-secondary"style="color: white;font-size:large;background-color:#5B7065">{{raceName.0}}</span></h5>
+      {% endif %}
+    <h5 style="text-align: center;"><span class="badge badge-primary"style="color: white;">{{output|linebreaks}}</span></h5>
+
+    <h4 style="text-align: center;">T = <span class="badge badge-success"style="color: white;background-color:#5B7065">{{finalresult}}</span></h4>
+    </div>
+  
+
+  </main>
+  <div class="sharethis-inline-share-buttons" data-url=" {{ sharemessage }}" data-title="Blackpenquin"></div>
+  <div class="card-header" style="background-color:#C9D1C8;text-align: center;">
+    <a class="nav-link" href="{% url 'home' %}">        <button type="button" class="btn btn-warning" style="text-align:center;">Order again <span class=reload>&#x21bb;</span></button> </a>
+</div>
+  <script>
+
+    
+        // suppose the `id` attribute of element is `message_container`.
+var message_ele = document.getElementById("message");
+
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+// Timeout is 3 sec, you can change it
+  </script>
+{% endblock %}
+

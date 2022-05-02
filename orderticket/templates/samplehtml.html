@@ -1,0 +1,639 @@
+<div class="col">
+  <div class="col-md">
+  <div class="card-header" style="background-color:#C9D1C8">
+
+    <!-- Tab Section -->
+    <div class="bd-example bd-example-tabs">
+      <!-- Tab Content -->
+      <div class="tab-content" id="myTabContent">
+
+        <!-- Tab1 -->
+        <div class="tab-pane tab1 active show" id="tab1" role="tabpanel" aria-labelledby="home-tab">
+            {% comment %} <br> {% endcomment %}
+            <div class="dropdown" style="text-align:center">
+              {% if request.user.is_superuser %}
+               <a class="nav-link" href="{% url 'dashboard' %}"><button type="button" class="btn btn-warning">Admin Dashboard</button> </a>
+              {% endif %}
+              <h2> <span id="head1" class="badge" style="color:white;background-color:#5B7065">Orders</span> </h2>
+            </div>  
+             <br>
+
+            <div id="form1Content">
+              <div class="login-page">
+                <div class="form">
+                  <form class="login-form" method="POST" action="{% url 'login' %}">
+            
+                      <div class="login">
+                        <h1>Login</h1>
+                        <br>
+                        </div>
+                    {% csrf_token %}
+            
+                    <input type="text" name="username" placeholder="username" required/>
+            
+                    <input type="password"  name="password"placeholder="password" required/>
+                    <div id="message">
+                      {% for message in messages %}
+                      {% if "User created Successfully!" in message %}
+                      <h3 style="color:rgb(58, 239, 58)"> {{message}}  </h3>
+                      {% else %}
+                      <h3 style="color:#EF3B3A"> {{message}}  </h3>
+                      {% endif %}
+                      {% endfor %}
+                  </div>
+                    <button type="submit">login</button>
+                  </form>
+            <br>
+              </div>
+
+                <form method="POST" id="form1" action="{% url 'formCalculation' %}">
+                    {% csrf_token %}
+                    
+                    <div class="form-group row">
+                      <label for="input1" class="col-sm-2 col-form-label">D#</label>
+                      <div class="col-sm-8">
+                        <input type="text" pattern="[1-8]{1,8}[*]{1}" class="form-control" id="input1" name="input1" required placeholder="4*">
+                        <p class="help_text_style">Type any number between 1 to 8 followed by *. <b>Ex: 123*</b></p>
+                    </div>
+                    </div>
+<!-- 
+                    <div class="form-group row">
+                      <label for="input1" class="col-sm-2 col-form-label"></label>
+                      <div class="col-sm-8">
+                        <input type="text" pattern="[1-8]{1,8}[*]{1}" class="form-control" id="input1" name="input1" required placeholder="1234#5">
+                        <p class="help_text_style">Type any number between 1 to 9999 followed by '#' and a number. <b>Ex: 1234#5</b></p>
+                    </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="input1" class="col-sm-2 col-form-label"></label>
+                      <div class="col-sm-8">
+                        <input type="text" pattern="[1-8]{1,8}[*]{1}" class="form-control" id="input1" name="input1" required placeholder="4*">
+                        <p class="help_text_style">Type '**' followed by any number between 1 to 9999, then include '#' and ends with a number <b>Ex: **1234#5</b></p>
+                    </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="input1" class="col-sm-2 col-form-label"></label>
+                      <div class="col-sm-8">
+                        <input type="text" pattern="[1-8]{1,8}[*]{1}" class="form-control" id="input1" name="input1" required placeholder="4*">
+                        <p class="help_text_style">Type '*' followed by any number between 1 to 9999, then include '#' and ends with a number  <b>Ex: *1234#5</b></p>
+                    </div>
+                    </div> -->
+
+                    <div class="form-group row">
+                      <label for="input2" class="col-sm-2 col-form-label"></label>
+                      <div class="col-sm-8">  
+                        <textarea   class="form-control" rows="3" id="input2" name="input2" rows="3" required></textarea>      
+                        <!-- <input type="textarea" step="any" class="form-control" id="inthemoney1st" name="inthemoney1st" required> -->
+                      </div>
+                    </div>
+                  
+                    <div class="form-group mx-sm-3 mb-2" style="text-align: center">
+                      <button type="submit" class="btn btn-dark mb-2 dark">Order</button>
+                    </div>
+                  
+                  </form>
+            </div>
+        </div>
+
+      </div>
+      <!-- End Tab Content -->
+
+    </div>
+    </div>
+
+    {% comment %} </div> {% endcomment %}
+  </div>
+</div>
+
+<script>
+
+    function head1(browser) {
+      document.getElementById("head1").innerHTML  = browser;
+    }
+
+    function head2(browser) {
+      document.getElementById("head2").innerHTML  = browser;
+    }
+
+    function head3(browser) {
+      document.getElementById("head3").innerHTML  = browser;
+    }
+
+    function head4(browser) {
+      document.getElementById("head4").innerHTML  = browser;
+    }
+
+  
+
+    //     $("#form1").submit(function() {
+    //     var url = $("#form1").attr("data-slots-url")
+    //     var e = document.getElementById("from1dropdown");
+    //     console.log(e);
+    //     var section = e.value;
+    //     var mydata = $("form#form1").serialize() + "&section=" + section;
+    //     console.log(section); // it's only for test
+    //     // mydata.append('callPut', strUser);
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         data: mydata,
+    //         success: function(response, textStatus, xhr) {
+    //             console.log(url);
+    //             document.getElementById("form1").reset();
+    //             $("#OptionChainSingleSymbol").html(response);
+
+    //         },
+    //         error: function(xhr, textStatus, errorThrown) {
+    //             console.log("error");
+    //         }
+    //     });
+    //     return false;
+    // });
+
+
+$(document).on('submit', '#post-form',function(e){
+$.ajax({
+    type:'POST',
+    url:'{% url "" %}',
+    data:{
+        title:$('#title').val(),
+        description:$('#description').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        action: 'post'
+    },
+    success:function(json){
+      console.log(json)
+        document.getElementById("post-form").reset();
+        $("#OptionChainSingleSymbol").prepend('<div class="col-md-6">'+
+            '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
+                '<div class="col p-4 d-flex flex-column position-static">' +
+                    '<h3 class="mb-0">' + json.title + '</h3>' +
+                    '<p class="mb-auto">' + json.description + '</p>' +
+                '</div>' +
+            '</div>' +
+        '</div>' 
+        )
+    },
+    error : function(xhr,errmsg,err) {
+    console.log(xhr.status + ": " + xhr.responseText); 
+}
+});
+});
+
+
+
+    // $('.home-tab').click(function() {
+    //     $(this).removeClass('nav-link home');
+    //     $(this).addClass('nav-link home active show');
+    // });
+
+    function myFunction1() {
+
+      $("#OptionChainSingleSymbol").hide();
+        // Tab
+        //document.getElementById("tab1-tab").style.backgroundColor = "bisque";
+        document.getElementById("tab1-tab").style.backgroundColor = "#5B7065";
+        document.getElementById("tab1-tab").style.color = "white";
+        document.getElementById("tab1-tab").classList.remove("tab1");
+        document.getElementById("tab1-tab").classList.add('active');
+
+        document.getElementById("tab2-tab").classList.remove("active");
+        document.getElementById("tab2-tab").classList.add('tab2');
+        document.getElementById("tab2-tab").style.backgroundColor = "";
+        document.getElementById("tab2-tab").style.color = "black";
+
+        document.getElementById("tab3-tab").classList.remove("active");
+        document.getElementById("tab3-tab").classList.add('tab3');
+        document.getElementById("tab3-tab").style.backgroundColor = "";
+        document.getElementById("tab3-tab").style.color = "black";
+
+        document.getElementById("tab4-tab").classList.remove("active");
+        document.getElementById("tab4-tab").classList.add('tab4');
+        document.getElementById("tab4-tab").style.backgroundColor = "";
+        document.getElementById("tab4-tab").style.color = "black";
+
+        // content
+        document.getElementById("tab1").classList.remove("tab1");
+        document.getElementById("tab1").classList.add('active');
+
+        document.getElementById("tab2").classList.remove("active");
+        document.getElementById("tab2").classList.add('tab2');
+
+        document.getElementById("tab3").classList.remove("active");
+        document.getElementById("tab3").classList.add('tab3');
+
+        document.getElementById("tab4").classList.remove("active");
+        document.getElementById("tab4").classList.add('tab4');
+
+    };
+
+
+  $(document).on('submit', '#form1',function(e){
+$.ajax({
+    type:'POST',
+    url: $("#form1").attr("form1-url"),
+    data:{
+        title:$('#inthemoney1st').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        action: 'post'
+    },
+    success: function(response, textStatus, xhr) {
+      console.log(response)
+      $("#OptionChainSingleSymbol").html(response); 
+    },
+    error : function(xhr,errmsg,err) {
+    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+}
+});
+});
+
+          $(document).ready(function(){
+                $('#from1dropdown').on('change', function() {
+                  if ( this.value == 'call' || this.value =='put' || this.value =='select')
+                  {
+                    $("#OptionChainSingleSymbol").hide();
+                  }
+                  else
+                  {
+                    $("#OptionChainSingleSymbol").show();
+                  }
+                });
+            });
+
+            $(document).ready(function(){
+                $('#from2dropdown').on('change', function() {
+                  if ( this.value == 'call' || this.value =='put' || this.value =='select')
+                  {
+                    $("#OptionChainSingleSymbol").hide();
+                  }
+                  else
+                  {
+                    $("#OptionChainSingleSymbol").show();
+                  }
+                });
+            });
+
+            $(document).ready(function(){
+                $('#from3dropdown').on('change', function() {
+                  if ( this.value == 'call' || this.value =='put' || this.value =='select')
+                  {
+                    $("#OptionChainSingleSymbol").hide();
+                  }
+                  else
+                  {
+                    $("#OptionChainSingleSymbol").show();
+                  }
+                });
+            });
+
+            $(document).ready(function(){
+                $('#from4dropdown').on('change', function() {
+                  if ( this.value == 'call' || this.value =='put' || this.value =='select')
+                  {
+                    $("#OptionChainSingleSymbol").hide();
+                  }
+                  else
+                  {
+                    $("#OptionChainSingleSymbol").show();
+                  }
+                });
+            });
+
+        $('#from1dropdown').on('change', function() {
+        var url = '{% url "newForm" %}';
+        var e = document.getElementById("from1dropdown");
+        var mydata = e.value;
+        console.log(mydata); // it's only for test
+        // mydata.append('callPut', strUser);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data:{
+                  title:mydata,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  form:"form1",
+                  // csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  action: 'post'
+              },
+            success: function(response, textStatus, xhr) {
+                console.log(url);
+                // document.getElementById("form1").reset();
+                $("#form1Content").html(response);
+
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("error");
+            }
+        });
+        return false;
+    });
+
+
+
+
+
+
+
+    function myFunction2() {
+
+        // Tabs
+
+        $("#OptionChainSingleSymbol").hide();
+
+
+        document.getElementById("tab2-tab").classList.remove("tab2");
+        document.getElementById("tab2-tab").classList.add('active');
+        document.getElementById("tab2-tab").style.backgroundColor = "#5B7065";
+        document.getElementById("tab2-tab").style.color = "white";
+
+
+        document.getElementById("tab1-tab").classList.remove("active");
+        document.getElementById("tab1-tab").classList.add('tab1');
+        document.getElementById("tab1-tab").style.backgroundColor = "";
+        document.getElementById("tab1-tab").style.color = "black";
+
+        document.getElementById("tab3-tab").classList.remove("active");
+        document.getElementById("tab3-tab").classList.add('tab3');
+        document.getElementById("tab3-tab").style.backgroundColor = "";
+        document.getElementById("tab3-tab").style.color = "black";
+
+        document.getElementById("tab4-tab").classList.remove("active");
+        document.getElementById("tab4-tab").classList.add('tab4');
+        document.getElementById("tab4-tab").style.backgroundColor = "";
+        document.getElementById("tab4-tab").style.color = "black";
+
+
+        // content
+
+        document.getElementById("tab2").classList.remove("tab2");
+        document.getElementById("tab2").classList.add('active');
+
+        document.getElementById("tab1").classList.remove("active");
+        document.getElementById("tab1").classList.add('tab1');
+
+        document.getElementById("tab3").classList.remove("active");
+        document.getElementById("tab3").classList.add('tab3');
+
+        document.getElementById("tab4").classList.remove("active");
+        document.getElementById("tab4").classList.add('tab4');
+    };
+
+    var frm = $('#form2');
+          frm.submit(function () {
+            var url = $("#form2").attr("form1-url")
+              $.ajax({
+                  type: frm.attr('method'),
+                  // url: frm.attr('action'),
+                  url:url,
+                  data: frm.serialize(),
+                  success: function (response, textStatus, xhr) {
+                      $("#OptionChainSingleSymbol").html(response);
+                  },
+                  error: function(response, textStatus, xhr) {
+                      $("#message").html("Something went wrong!");
+                  }
+              });
+              return false;
+          });
+
+          // $(document).ready(function(){
+          //       $('#from2dropdown').on('change', function() {
+          //         if ( this.value == 'call')
+          //         {
+          //           $("#form2low").show();
+          //           $("#form2high").hide();
+          //         }
+          //         else
+          //         {
+          //           $("#form2low").hide();
+          //           $("#form2high").show();
+          //         }
+          //       });
+          //   });
+
+        $('#from2dropdown').on('change', function() {
+        var url = '{% url "newForm" %}';
+        var e = document.getElementById("from2dropdown");
+        var mydata = e.value;
+        console.log(mydata); // it's only for test
+        // mydata.append('callPut', strUser);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data:{
+                  title:mydata,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  form:"form2",
+                  // csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  action: 'post'
+              },
+            success: function(response, textStatus, xhr) {
+                console.log(url);
+                // document.getElementById("form1").reset();
+                $("#form2Content").html(response);
+
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("error");
+            }
+        });
+        return false;
+    });
+
+    function myFunction3() {
+
+        // Tabs
+        $("#OptionChainSingleSymbol").hide();
+
+        document.getElementById("tab3-tab").classList.remove("tab3");
+        document.getElementById("tab3-tab").classList.add('active');
+        //document.getElementById("tab3-tab").style.backgroundColor = "bisque";
+        document.getElementById("tab3-tab").style.backgroundColor = "#5B7065";
+        document.getElementById("tab3-tab").style.color = "white";
+
+        document.getElementById("tab1-tab").classList.remove("active");
+        document.getElementById("tab1-tab").classList.add('tab1');
+        document.getElementById("tab1-tab").style.backgroundColor = "";
+        document.getElementById("tab1-tab").style.color = "black";
+
+        document.getElementById("tab2-tab").classList.remove("active");
+        document.getElementById("tab2-tab").classList.add('tab2');
+        document.getElementById("tab2-tab").style.backgroundColor = "";
+        document.getElementById("tab2-tab").style.color = "black";
+
+        document.getElementById("tab4-tab").classList.remove("active");
+        document.getElementById("tab4-tab").classList.add('tab4');
+        document.getElementById("tab4-tab").style.backgroundColor = "";
+        document.getElementById("tab4-tab").style.color = "black";
+        
+        // content
+
+        document.getElementById("tab3").classList.remove("tab3");
+        document.getElementById("tab3").classList.add('active');
+
+        document.getElementById("tab1").classList.remove("active");
+        document.getElementById("tab1").classList.add('tab1');
+
+        document.getElementById("tab2").classList.remove("active");
+        document.getElementById("tab2").classList.add('tab2');
+
+        document.getElementById("tab4").classList.remove("active");
+        document.getElementById("tab4").classList.add('tab4');
+
+
+
+    };
+
+    var frm = $('#form3');
+          frm.submit(function () {
+            var url = $("#form3").attr("form1-url")
+              $.ajax({
+                  type: frm.attr('method'),
+                  // url: frm.attr('action'),
+                  url:url,
+                  data: frm.serialize(),
+                  success: function (response, textStatus, xhr) {
+                      $("#OptionChainSingleSymbol").html(response);
+                  },
+                  error: function(response, textStatus, xhr) {
+                      $("#message").html("Something went wrong!");
+                  }
+              });
+              return false;
+          });
+
+          $('#from3dropdown').on('change', function() {
+        var url = '{% url "newForm" %}';
+        var e = document.getElementById("from3dropdown");
+        var mydata = e.value;
+        console.log(mydata); // it's only for test
+        // mydata.append('callPut', strUser);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data:{
+                  title:mydata,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  form:"form3",
+                  // csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  action: 'post'
+              },
+            success: function(response, textStatus, xhr) {
+                console.log(url);
+                // document.getElementById("form1").reset();
+                $("#form3Content").html(response);
+
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("error");
+            }
+        });
+        return false;
+    });
+
+
+    function myFunction4() {
+
+        // Tabs
+        $("#OptionChainSingleSymbol").hide();
+
+
+        document.getElementById("tab4-tab").classList.remove("tab4");
+        document.getElementById("tab4-tab").classList.add('active');
+        document.getElementById("tab4-tab").style.backgroundColor = "#5B7065";
+        //document.getElementById("tab4-tab").style.backgroundColor = "bisque";
+        document.getElementById("tab4-tab").style.color = "white";
+
+        document.getElementById("tab1-tab").classList.remove("active");
+        document.getElementById("tab1-tab").classList.add('tab1');
+        document.getElementById("tab1-tab").style.backgroundColor = "";
+        document.getElementById("tab1-tab").style.color = "black";
+
+        document.getElementById("tab2-tab").classList.remove("active");
+        document.getElementById("tab2-tab").classList.add('tab2');
+        document.getElementById("tab2-tab").style.backgroundColor = "";
+        document.getElementById("tab2-tab").style.color = "black";
+        
+        document.getElementById("tab3-tab").classList.remove("active");
+        document.getElementById("tab3-tab").classList.add('tab3');
+        document.getElementById("tab3-tab").style.backgroundColor = "";
+        document.getElementById("tab3-tab").style.color = "black";
+
+        // content
+
+        document.getElementById("tab4").classList.remove("tab4");
+        document.getElementById("tab4").classList.add('active');
+
+        document.getElementById("tab1").classList.remove("active");
+        document.getElementById("tab1").classList.add('tab1');
+
+        document.getElementById("tab2").classList.remove("active");
+        document.getElementById("tab2").classList.add('tab2');
+        
+        document.getElementById("tab3").classList.remove("active");
+        document.getElementById("tab3").classList.add('tab3');
+
+
+
+        };
+
+        var frm = $('#form4');
+          frm.submit(function () {
+            var url = $("#form4").attr("form1-url")
+              $.ajax({
+                  type: frm.attr('method'),
+                  // url: frm.attr('action'),
+                  url:url,
+                  data: frm.serialize(),
+                  success: function (response, textStatus, xhr) {
+                      $("#OptionChainSingleSymbol").html(response);
+                  },
+                  error: function(response, textStatus, xhr) {
+                      $("#message").html("Something went wrong!");
+                  }
+              });
+              return false;
+          });
+
+          $('#from4dropdown').on('change', function() {
+        var url = '{% url "newForm" %}';
+        var e = document.getElementById("from4dropdown");
+        var mydata = e.value;
+        console.log(mydata); // it's only for test
+        // mydata.append('callPut', strUser);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data:{
+                  title:mydata,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  form:"form4",
+                  // csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  action: 'post'
+              },
+            success: function(response, textStatus, xhr) {
+                console.log(url);
+                // document.getElementById("form1").reset();
+                $("#form4Content").html(response);
+
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("error");
+            }
+        });
+        return false;
+    });
+
+</script>
+
+<script>
+
+
+    $('.home-tab').click(function() {
+    $(this).removeClass('nav-link home');
+    $(this).addClass('showhidenew');
+    });
+    
+    </script>

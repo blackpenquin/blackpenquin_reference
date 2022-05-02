@@ -1,0 +1,176 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+<style>
+	.table-scroll{
+  /*width:100%; */
+  display: block;
+  empty-cells: show;
+  
+  /* Decoration */
+  border-spacing: 0;
+  border: 1px solid;
+}
+
+.table-scroll thead{
+  background-color: #f1f1f1;  
+  position:relative;
+  display: block;
+  width:100%;
+  overflow-y: scroll;
+}
+
+.table-scroll tbody{
+  /* Position */
+  display: block; position:relative;
+  width:100%; overflow-y:scroll;
+  /* Decoration */
+  border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.table-scroll tr{
+  width: 100%;
+  display:flex;
+}
+
+.table-scroll td,.table-scroll th{
+  flex-basis:100%;
+  flex-grow:2;
+  display: block;
+  padding: 1rem;
+  text-align:left;
+}
+
+/* Other options */
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child{
+  flex-basis:20%;
+  flex-grow:1;
+}
+
+.table-scroll tbody tr:nth-child(2n){
+  background-color: rgba(130,130,170,0.1);
+}
+
+.body-half-screen{
+  max-height: 50vh;
+}
+
+.small-col{flex-basis:10%;}
+
+.table {
+      display: flex;
+    }
+
+    .table .col {
+      width: 25%;
+    }
+
+    @media screen and (max-width: 786px) {
+      .table {
+        flex-wrap: wrap;
+      }
+      .table .col {
+        width: 50%;
+      }
+    }
+</style>
+
+<br>
+
+<div class="row">
+
+</div>
+
+
+{% comment %} <br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{myFilter.form}}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div> {% endcomment %}
+<br>
+
+{% if messages %}
+{% for message in messages %}
+<p style="color:green; font-size: 20px; list-style-type: none;" id="message">{{message}}</p>
+{% endfor %}	
+{% endif %}
+
+
+{% comment %} <ul id ="msg" class="messages">
+	{% for message in messages %}
+	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:green; font-size: 20px; list-style-type: none;">{{ message }}</li>
+	{% endfor %}
+</ul> {% endcomment %}
+
+
+<div class="row">
+	<div class="col" style="text-align: center;">
+        {{noorders}}
+		<!-- <div class="card card-body"> -->
+
+
+
+			<!-- <table class="table table-sm">
+				<tr>
+					<th>Order No.</th>
+					<th>Races</th>
+                    <th>Detail</th>
+					<th>Total</th>
+					<th>Ordered on</th>
+
+				</tr>
+
+				{% for order in subscriptions %}
+
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td>{{order.race}}</td>
+                    <td>{{order.orderdetail}}</td>
+					<td>{{order.total}}</td>
+					<td>{{ order.orderdate }}</td>
+
+				</tr>
+				{% endfor %}
+
+			</table> -->
+		<!-- </div> -->
+	</div>
+</div>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+
+
+
+  // suppose the `id` attribute of element is `message_container`.
+  var message_ele = document.getElementById("message");
+
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+// Timeout is 3 sec, you can change it
+
+
+</script>
+
+
+
+
+
+{% endblock %}
